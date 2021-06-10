@@ -1,0 +1,28 @@
+version: '3'
+
+volumes:
+  pgdata:
+
+services:
+  django: &python
+    build:
+      context: .
+      dockerfile: ./compose/python/Dockerfile
+    image: django
+    depends_on:
+      - db
+    volumes:
+      - .:/keyua
+    env_file:
+      - ./.envs/.django
+      - ./.envs/.postgres
+    ports:
+      - "8000:8000"
+    command: /start
+
+  db:
+    image: postgres
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    env_file:
+      - ./.envs/.postgres
