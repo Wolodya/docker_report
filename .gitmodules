@@ -1,0 +1,3 @@
+[submodule "keyua"]
+	path = keyua
+	url = https://github.com/Wolodya/keyua.git
