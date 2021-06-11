@@ -1,0 +1,4 @@
+#!/bin/sh
+
+cd keyua/report_page
+celery -A report_page worker -l INFO

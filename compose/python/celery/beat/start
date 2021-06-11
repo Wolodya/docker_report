@@ -1,0 +1,5 @@
+#!/bin/sh
+
+cd keyua/report_page
+rm -f './celerybeat.pid'
+celery -A report_page beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler

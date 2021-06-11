@@ -2,6 +2,7 @@ version: '3'
 
 volumes:
   pgdata:
+  rabbit_data:
 
 services:
   django: &python
@@ -26,3 +27,39 @@ services:
       - pgdata:/var/lib/postgresql/data
     env_file:
       - ./.envs/.postgres
+  
+  rabbit:
+    hostname: rabbit
+    image: rabbitmq:3.8-management
+    tty: true
+    volumes:
+      - rabbit_data:/var/lib/rabbitmq
+    env_file:
+      - ./.envs/.django
+    ports:
+        - "15673:15672"
+
+  celeryworker: &worker
+    <<: *python
+    image: celeryworker
+    depends_on:
+      - rabbit
+      - db
+    ports: []
+    command: /start-celeryworker
+  
+  celerybeat:
+    <<: *python
+    image: celerybeat
+    depends_on:
+      - rabbit
+      - db
+    ports: []
+    command: /start-celerybeat
+
+  flower:
+    <<: *python
+    image: flower
+    ports:
+      - "5555:5555"
+    command: /start-flower

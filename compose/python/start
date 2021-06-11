@@ -1,5 +1,4 @@
 #!/bin/sh
-sleep 20
 python keyua/report_page/manage.py collectstatic --noinput
 python keyua/report_page/manage.py migrate
 python keyua/report_page/manage.py runserver 0.0.0.0:8000
