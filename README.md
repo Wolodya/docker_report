@@ -9,7 +9,7 @@
 2. На основе .envs/.django_template .envs/.postgres_template создать файлы .envs/.django .envs/.postgres
 3. ```docker-compose build```
 4. ```docker-compose up``` или ```docker-compose up -d``` если запускать в демон режиме
-
+5. Для создания таски на отправку писем в админке, нужно создать супер юзера в контейнере. ```python manage.py createsuperuser```
 
 ### Порты:
 - 8000 основной порт на котором джанго приложение.
